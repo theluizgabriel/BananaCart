@@ -26,7 +26,7 @@ export default class Home extends Component {
     }
 
     searchProducts = async () => {
-      const { search, products } = this.state;
+      const { search } = this.state;
       const responseApi = await getProductsFromCategoryAndQuery('', search);
       this.setState({ products: responseApi.results });
     }
