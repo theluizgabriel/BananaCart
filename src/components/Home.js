@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CategorySelect from './CategorySelect';
 
 export default class Home extends Component {
     state = {
@@ -24,18 +25,21 @@ export default class Home extends Component {
     render() {
       const { search, isEmpty } = this.state;
       return (
-        <div>
-          <input
-            type="text"
-            name="search"
-            value={ search }
-            onChange={ this.handleChange }
-          />
-          {isEmpty && (
-            <p data-testid="home-initial-message">
-              Digite algum termo de pesquisa ou escolha uma categoria.
-            </p>)}
-        </div>
+        <>
+          <CategorySelect />
+          <div>
+            <input
+              type="text"
+              name="search"
+              value={ search }
+              onChange={ this.handleChange }
+            />
+            {isEmpty && (
+              <p data-testid="home-initial-message">
+                Digite algum termo de pesquisa ou escolha uma categoria.
+              </p>)}
+          </div>
+        </>
       );
     }
 }
