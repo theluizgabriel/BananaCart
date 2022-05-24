@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CartPageRedirect from './CartPageRedirect';
 
 export default class Home extends Component {
     state = {
@@ -31,6 +32,7 @@ export default class Home extends Component {
             value={ search }
             onChange={ this.handleChange }
           />
+          <CartPageRedirect />
           {isEmpty && (
             <p data-testid="home-initial-message">
               Digite algum termo de pesquisa ou escolha uma categoria.
