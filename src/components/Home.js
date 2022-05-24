@@ -4,7 +4,6 @@ import CategorySelect from './CategorySelect';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ProductCard from './ProductCard';
 
-
 export default class Home extends Component {
     state = {
       search: '',
