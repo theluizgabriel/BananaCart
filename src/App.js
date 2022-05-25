@@ -19,7 +19,7 @@ class App extends React.Component {
       if (currId === id) {
         const newQty = qty + 1;
         return {
-          id,
+          id: currId,
           qty: newQty,
           name,
           price,
@@ -27,7 +27,7 @@ class App extends React.Component {
         };
       }
       return {
-        id,
+        id: currId,
         qty,
         name,
         price,

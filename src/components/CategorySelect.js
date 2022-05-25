@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import ProductCard from './ProductCard';
-import {
-  getCategories,
-  getProductsFromCategoryAndQuery,
-} from '../services/api';
+import PropTypes from 'prop-types';
+
+import { getCategories } from '../services/api';
 
 class CategorySelect extends Component {
   state = {
     categoryList: [],
-    checkedFilter: false,
-    productListFiltered: [],
   };
 
   componentDidMount() {
@@ -21,17 +17,10 @@ class CategorySelect extends Component {
     this.setState({ categoryList });
   };
 
-  onInputCheck = async ({ target }) => {
-    const categorySearch = await getProductsFromCategoryAndQuery(target.value);
-    this.setState({
-      checkedFilter: true,
-      productListFiltered: categorySearch.results,
-    });
-    console.log(categorySearch);
-  };
-
   render() {
-    const { categoryList, checkedFilter, productListFiltered } = this.state;
+    const { categoryList } = this.state;
+    const { onInputCheck } = this.props;
+
     const categoryListElement = categoryList.map(({ name, id }) => (
       <li key={ id }>
         <label data-testid="category" htmlFor={ name }>
@@ -40,7 +29,7 @@ class CategorySelect extends Component {
             id={ name }
             value={ id }
             name="categoria"
-            onClick={ this.onInputCheck }
+            onClick={ onInputCheck }
           />
           {name}
         </label>
@@ -51,22 +40,13 @@ class CategorySelect extends Component {
     return (
       <div style={ { float: 'left' } }>
         <ul>{categoryListElement}</ul>
-
-        {checkedFilter
-          && productListFiltered.map(({ title, thumbnail, price, id }) => (
-            <div className="product-filtered-list" key={ id }>
-              <ProductCard
-                key={ id }
-                id={ id }
-                name={ title }
-                image={ thumbnail }
-                price={ price }
-              />
-            </div>
-          ))}
       </div>
     );
   }
 }
 
 export default CategorySelect;
+
+CategorySelect.propTypes = {
+  onInputCheck: PropTypes.func.isRequired,
+};
