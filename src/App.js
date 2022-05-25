@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Cart from './components/Cart';
+import ProductDetails from './components/ProductDetails';
 
 class App extends React.Component {
   constructor() {
@@ -12,10 +13,10 @@ class App extends React.Component {
     };
   }
 
-  hasItem = (cartList, id) => (cartList.some(({ id: currId }) => currId === id));
+  hasItem = (cartList, id) => cartList.some(({ id: currId }) => currId === id);
 
-  updateItem = (cartList, id) => cartList.map(
-    ({ qty, id: currId, name, price, image }) => {
+  updateItem = (cartList, id) => cartList
+    .map(({ qty, id: currId, name, price, image }) => {
       if (currId === id) {
         const newQty = qty + 1;
         return {
@@ -33,8 +34,7 @@ class App extends React.Component {
         price,
         image,
       };
-    },
-  );
+    });
 
   addToCart = (id, name, price, image) => {
     const newItem = {
@@ -52,15 +52,28 @@ class App extends React.Component {
       }
       return { cartList: [...cartList, newItem] };
     });
-  }
+  };
 
   render() {
     const { cartList } = this.state;
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" render={ () => <Home addToCart={ this.addToCart } /> } />
-          <Route exact path="/cart" render={ () => <Cart cartList={ cartList } /> } />
+          <Route
+            exact
+            path="/"
+            render={ () => <Home addToCart={ this.addToCart } /> }
+          />
+          <Route
+            exact
+            path="/cart"
+            render={ () => <Cart cartList={ cartList } /> }
+          />
+          <Route
+            exact
+            path="/product/:id"
+            render={ (props) => <ProductDetails { ...props } /> }
+          />
         </Switch>
       </BrowserRouter>
     );
