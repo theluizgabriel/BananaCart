@@ -30,7 +30,11 @@ class ProductCard extends Component {
         </p>
         <img src={ image } alt={ name } width="150px" />
         <p>{price}</p>
-        <button type="button" onClick={ () => addToCart(id, name, price, image) }>
+        <button
+          data-testid="product-add-to-cart"
+          type="button"
+          onClick={ () => addToCart(id, name, price, image) }
+        >
           Adicionar ao Carrinho
         </button>
       </div>
