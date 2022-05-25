@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import CartPageRedirect from './CartPageRedirect';
 import CategorySelect from './CategorySelect';
 import { getProductsFromCategoryAndQuery } from '../services/api';
@@ -34,6 +35,7 @@ export default class Home extends Component {
 
     render() {
       const { search, isEmpty, products } = this.state;
+      const { addToCart } = this.props;
 
       return (
         <>
@@ -67,6 +69,7 @@ export default class Home extends Component {
                 name={ title }
                 image={ thumbnail }
                 price={ price }
+                addToCart={ addToCart }
               />
             )) }
           </div>
@@ -74,3 +77,7 @@ export default class Home extends Component {
       );
     }
 }
+
+Home.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+};
