@@ -9,6 +9,7 @@ export default class Home extends Component {
     state = {
       search: '',
       products: [],
+      categorySelect: '',
       isEmpty: true,
     }
 
@@ -16,6 +17,13 @@ export default class Home extends Component {
       this.setState({ [target.name]: target.value },
         this.onInputChange);
     }
+
+    onInputCheck = async ({ target }) => {
+      const { value } = target;
+      this.setState({
+        categorySelect: value,
+      }, this.searchProducts);
+    };
 
     onInputChange = () => {
       const emptyLength = 0;
@@ -28,8 +36,8 @@ export default class Home extends Component {
     }
 
     searchProducts = async () => {
-      const { search } = this.state;
-      const responseApi = await getProductsFromCategoryAndQuery('', search);
+      const { search, categorySelect } = this.state;
+      const responseApi = await getProductsFromCategoryAndQuery(categorySelect, search);
       this.setState({ products: responseApi.results });
     }
 
@@ -39,7 +47,7 @@ export default class Home extends Component {
 
       return (
         <>
-          <CategorySelect />
+          <CategorySelect onInputCheck={ this.onInputCheck } />
           <div>
             <input
               type="text"
