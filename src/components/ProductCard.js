@@ -8,8 +8,8 @@ class ProductCard extends Component {
   };
 
   componentDidMount = () => {
-    const { name, price, image } = this.props;
-    this.setState({ productDetails: { name, price, image } });
+    const { name, price, image, id } = this.props;
+    this.setState({ productDetails: { id, name, price, image } });
   };
 
   render() {
