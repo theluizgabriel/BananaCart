@@ -10,17 +10,46 @@ class ProductDetails extends Component {
     reviews: [],
   }
 
+  componentDidMount() {
+    this.getReviews();
+  }
+
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
   }
 
+  getReviews = () => {
+    const {
+      location: {
+        state: {
+          productDetails: { id },
+        },
+      },
+    } = this.props;
+    const reviewsSaved = JSON.parse(localStorage.getItem(`${id}`));
+    this.setState({ reviews: reviewsSaved });
+    console.log(reviewsSaved);
+  }
+
   resetReview = (card) => {
-    this.setState((prev) => ({
-      reviews: [...prev.reviews, card],
-      userEmail: '',
-      userReview: '',
-      rating: '',
-    }));
+    const {
+      location: {
+        state: {
+          productDetails: { id },
+        },
+      },
+    } = this.props;
+    this.setState((prev) => {
+      if (prev.reviews) {
+        localStorage.setItem(`${id}`, JSON.stringify([...prev.reviews, card]));
+      }
+      return {
+        reviews: [...prev.reviews, card],
+        userEmail: '',
+        userReview: '',
+        rating: '',
+      };
+    });
   }
 
   saveReview = () => {
@@ -76,6 +105,7 @@ class ProductDetails extends Component {
           <label htmlFor="numberOne">
             1
             <input
+              data-testid="1-rating"
               type="radio"
               name="rating"
               value="1"
@@ -85,6 +115,7 @@ class ProductDetails extends Component {
           <label htmlFor="numberTwo">
             2
             <input
+              data-testid="2-rating"
               type="radio"
               name="rating"
               value="2"
@@ -94,6 +125,7 @@ class ProductDetails extends Component {
           <label htmlFor="numberThree">
             3
             <input
+              data-testid="3-rating"
               type="radio"
               name="rating"
               value="3"
@@ -103,6 +135,7 @@ class ProductDetails extends Component {
           <label htmlFor="numberFour">
             4
             <input
+              data-testid="4-rating"
               type="radio"
               name="rating"
               value="4"
@@ -112,6 +145,7 @@ class ProductDetails extends Component {
           <label htmlFor="numberFive">
             5
             <input
+              data-testid="5-rating"
               type="radio"
               name="rating"
               value="5"
@@ -127,15 +161,14 @@ class ProductDetails extends Component {
             Avaliar
           </button>
         </form>
-        {reviews.map((element, index) => (
+        {reviews && reviews.length > 0 ? reviews.map((element, index) => (
           <div key={ index }>
             <p>{element.email}</p>
             <p>{element.review}</p>
-            <img src="../star.png" alt="star" />
             <p>{element.rating}</p>
             <hr />
           </div>
-        ))}
+        )) : null}
       </div>
     );
   }
