@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import ProductDetails from './components/ProductDetails';
+import Checkout from './components/Checkout';
 import Header from './components/Header';
 
 class App extends React.Component {
@@ -129,6 +130,11 @@ class App extends React.Component {
               { ...props }
               addToCart={ this.addToCart }
             />) }
+          />
+          <Route
+            exact
+            path="/checkout"
+            render={ () => <Checkout cartList={ cartList } /> }
           />
         </Switch>
       </BrowserRouter>
