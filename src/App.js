@@ -4,13 +4,22 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import ProductDetails from './components/ProductDetails';
+import Header from './components/Header';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       cartList: [],
+      quantity: 0,
     };
+  }
+
+  getQuantity = (itemsList = {}) => {
+    const { cartList } = itemsList;
+    const quantity = cartList.reduce((acc, curr) => acc + curr.qty, 0);
+    // this.setState({ quantity });
+    return quantity;
   }
 
   hasItem = (cartList, id) => cartList.some(({ id: currId }) => currId === id);
@@ -75,16 +84,21 @@ class App extends React.Component {
     this.setState(({ cartList }) => {
       if (this.hasItem(cartList, id)) {
         const newCart = this.updateItem(cartList, id, operation);
-        return { cartList: newCart };
+        const quantity = this.getQuantity({ cartList: newCart });
+        return { cartList: newCart,
+          quantity };
       }
-      return { cartList: [...cartList, newItem] };
+      const quantity = this.getQuantity({ cartList: [...cartList, newItem] });
+      return { cartList: [...cartList, newItem],
+        quantity };
     });
   };
 
   render() {
-    const { cartList } = this.state;
+    const { quantity, cartList } = this.state;
     return (
       <BrowserRouter>
+        <Header quantity={ quantity } />
         <Switch>
           <Route
             exact
