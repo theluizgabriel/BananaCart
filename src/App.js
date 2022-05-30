@@ -15,6 +15,15 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const cartList = JSON.parse(localStorage.getItem('cart'));
+    if (cartList) {
+      const quantity = this.getQuantity({ cartList });
+      this.setState({ cartList, quantity });
+    }
+    console.log(cartList);
+  }
+
   getQuantity = (itemsList = {}) => {
     const { cartList } = itemsList;
     const quantity = cartList.reduce((acc, curr) => acc + curr.qty, 0);
@@ -85,10 +94,13 @@ class App extends React.Component {
       if (this.hasItem(cartList, id)) {
         const newCart = this.updateItem(cartList, id, operation);
         const quantity = this.getQuantity({ cartList: newCart });
+        localStorage.setItem('cart', JSON.stringify(newCart));
         return { cartList: newCart,
           quantity };
       }
       const quantity = this.getQuantity({ cartList: [...cartList, newItem] });
+      localStorage.setItem('cart',
+        JSON.stringify([...cartList, newItem]));
       return { cartList: [...cartList, newItem],
         quantity };
     });
