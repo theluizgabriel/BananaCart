@@ -8,12 +8,12 @@ class ProductCard extends Component {
   };
 
   componentDidMount = () => {
-    const { name, price, image, id } = this.props;
-    this.setState({ productDetails: { id, name, price, image } });
+    const { name, price, image, id, stock } = this.props;
+    this.setState({ productDetails: { id, name, price, image, stock } });
   };
 
   render() {
-    const { name, price, image, addToCart, id } = this.props;
+    const { name, price, image, addToCart, id, stock } = this.props;
     const { productDetails } = this.state;
     return (
       <div data-testid="product" style={ { border: '1px solid black' } }>
@@ -33,7 +33,7 @@ class ProductCard extends Component {
         <button
           data-testid="product-add-to-cart"
           type="button"
-          onClick={ () => addToCart({ id, name, price, image }, 'add') }
+          onClick={ () => addToCart({ id, name, price, image, stock }, 'add') }
         >
           Adicionar ao Carrinho
         </button>
@@ -48,6 +48,7 @@ ProductCard.propTypes = {
   price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   addToCart: PropTypes.func.isRequired,
+  stock: PropTypes.number.isRequired,
 };
 
 export default ProductCard;

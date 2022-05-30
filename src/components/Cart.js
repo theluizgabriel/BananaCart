@@ -16,7 +16,7 @@ export default class Cart extends React.Component {
         <h1>Carrinho de compras</h1>
         {cartList.length ? (
           <ul>
-            {cartList.map(({ id, name, qty, image, price }) => (
+            {cartList.map(({ id, name, qty, image, price, available_quantity: stk }) => (
               <CardItemCart
                 id={ id }
                 key={ id }
@@ -25,6 +25,7 @@ export default class Cart extends React.Component {
                 image={ image }
                 price={ price }
                 addOrRemoveItem={ this.addOrRemoveItem }
+                stock={ stk }
               />
             ))}
           </ul>

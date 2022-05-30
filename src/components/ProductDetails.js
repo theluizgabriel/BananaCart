@@ -69,7 +69,7 @@ class ProductDetails extends Component {
       addToCart,
       location: {
         state: {
-          productDetails: { id, name, image, price },
+          productDetails: { id, name, image, price, stock },
         },
       },
     } = this.props;
@@ -82,7 +82,7 @@ class ProductDetails extends Component {
         <button
           data-testid="product-detail-add-to-cart"
           type="button"
-          onClick={ () => addToCart({ id, name, price, image }) }
+          onClick={ () => addToCart({ id, name, price, image, stock }) }
         >
           Adicionar ao Carrinho
         </button>
@@ -184,6 +184,7 @@ ProductDetails.propTypes = {
         name: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         image: PropTypes.string.isRequired,
+        stock: PropTypes.number.isRequired,
       }).isRequired,
     }).isRequired,
   }).isRequired,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class CardItemCart extends React.Component {
   render() {
-    const { id, name, image, qty, price, addOrRemoveItem } = this.props;
+    const { id, name, image, qty, price, addOrRemoveItem, stock } = this.props;
     return (
       <li style={ { border: '1px solid black' } }>
         <p data-testid="shopping-cart-product-name">{name}</p>
@@ -11,7 +11,7 @@ class CardItemCart extends React.Component {
         <p data-testid="shopping-cart-product-quantity">{ `Quantidade: ${qty}` }</p>
         <p>{ `R$ ${price}` }</p>
         <button
-          onClick={ () => addOrRemoveItem('remove', { id, name, price, image }) }
+          onClick={ () => addOrRemoveItem('remove', { id, name, price, image, stock }) }
           id={ id }
           data-testid="product-decrease-quantity"
           type="button"
@@ -19,7 +19,7 @@ class CardItemCart extends React.Component {
           -1
         </button>
         <button
-          onClick={ () => addOrRemoveItem('add', { id, name, price, image }) }
+          onClick={ () => addOrRemoveItem('add', { id, name, price, image, stock }) }
           id={ id }
           data-testid="product-increase-quantity"
           type="button"
@@ -31,6 +31,10 @@ class CardItemCart extends React.Component {
   }
 }
 
+CardItemCart.defaultProps = {
+  stock: 1,
+};
+
 CardItemCart.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
@@ -38,6 +42,7 @@ CardItemCart.propTypes = {
   price: PropTypes.number.isRequired,
   qty: PropTypes.number.isRequired,
   addOrRemoveItem: PropTypes.func.isRequired,
+  stock: PropTypes.number,
 };
 
 export default CardItemCart;

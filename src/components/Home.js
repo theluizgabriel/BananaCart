@@ -68,7 +68,7 @@ export default class Home extends Component {
               </p>)}
           </div>
           <div>
-            { products.map(({ title, thumbnail, price, id }) => (
+            { products.map(({ title, thumbnail, price, id, available_quantity: qty }) => (
               <ProductCard
                 key={ id }
                 id={ id }
@@ -76,6 +76,7 @@ export default class Home extends Component {
                 image={ thumbnail }
                 price={ price }
                 addToCart={ addToCart }
+                stock={ qty }
               />
             )) }
           </div>
