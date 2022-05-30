@@ -69,7 +69,7 @@ class ProductDetails extends Component {
       addToCart,
       location: {
         state: {
-          productDetails: { id, name, image, price, stock },
+          productDetails: { id, name, image, price, stock, isFreeShipping },
         },
       },
     } = this.props;
@@ -77,6 +77,7 @@ class ProductDetails extends Component {
     return (
       <div>
         <p data-testid="product-detail-name">{name}</p>
+        { isFreeShipping && <p data-testid="free-shipping">Frete Grátis</p> }
         <img src={ image } alt={ name } />
         <p>{price}</p>
         <button
@@ -180,6 +181,7 @@ ProductDetails.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       productDetails: PropTypes.shape({
+        isFreeShipping: PropTypes.bool.isRequired,
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
