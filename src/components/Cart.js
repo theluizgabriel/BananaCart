@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import CardItemCart from './CardItemCart';
 
 export default class Cart extends React.Component {
   addOrRemoveItem = (operation, { id, name, price, image }) => {
     const { addToCart } = this.props;
     addToCart({ id, name, price, image }, operation);
-  }
+  };
 
   render() {
     const { cartList } = this.props;
@@ -31,6 +32,13 @@ export default class Cart extends React.Component {
           <p data-testid="shopping-cart-empty-message">
             Seu carrinho está vazio
           </p>
+        )}
+        {cartList.length > 0 && (
+          <Link data-testid="checkout-products" to="/checkout">
+            <button type="button">
+              Finalizar
+            </button>
+          </Link>
         )}
       </main>
     );
