@@ -22,7 +22,6 @@ class App extends React.Component {
       const quantity = this.getQuantity({ cartList });
       this.setState({ cartList, quantity });
     }
-    console.log(cartList);
   }
 
   getQuantity = (itemsList = {}) => {
@@ -58,14 +57,16 @@ class App extends React.Component {
     //     image: item.image,
     //   }];
     // }, []);
-    .map(({ qty, id: currId, name, price, image }) => {
+    .map(({ qty, id: currId, name, price, image, stock }) => {
       if (currId === id) {
         let newQty = qty;
         newQty = operation === 'remove' ? qty - 1 : qty + 1;
         if (newQty < 1) {
           newQty = 1;
         }
+        if (newQty > stock) newQty = stock;
         return {
+          stock,
           id: currId,
           qty: newQty,
           name,
@@ -74,6 +75,7 @@ class App extends React.Component {
         };
       }
       return {
+        stock,
         id: currId,
         qty,
         name,
@@ -82,15 +84,15 @@ class App extends React.Component {
       };
     });
 
-  addToCart = ({ id, name, price, image }, operation) => {
+  addToCart = ({ id, name, price, image, stock }, operation) => {
     const newItem = {
+      stock,
       qty: 1,
       id,
       name,
       price,
       image,
     };
-
     this.setState(({ cartList }) => {
       if (this.hasItem(cartList, id)) {
         const newCart = this.updateItem(cartList, id, operation);
