@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CartPageRedirect from './CartPageRedirect';
 
 class ProductDetails extends Component {
   state = {
@@ -80,7 +79,6 @@ class ProductDetails extends Component {
         <p data-testid="product-detail-name">{name}</p>
         <img src={ image } alt={ name } />
         <p>{price}</p>
-        <CartPageRedirect />
         <button
           data-testid="product-detail-add-to-cart"
           type="button"

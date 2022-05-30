@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CartPageRedirect from './CartPageRedirect';
 import CategorySelect from './CategorySelect';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ProductCard from './ProductCard';
@@ -63,7 +62,6 @@ export default class Home extends Component {
             >
               Pesquisar
             </button>
-            <CartPageRedirect />
             {isEmpty && (
               <p data-testid="home-initial-message">
                 Digite algum termo de pesquisa ou escolha uma categoria.
