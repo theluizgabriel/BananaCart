@@ -27,7 +27,9 @@ class ProductDetails extends Component {
       },
     } = this.props;
     const reviewsSaved = JSON.parse(localStorage.getItem(`${id}`));
-    this.setState({ reviews: reviewsSaved });
+    if (reviewsSaved) {
+      this.setState({ reviews: reviewsSaved });
+    }
     console.log(reviewsSaved);
   }
 
@@ -40,6 +42,7 @@ class ProductDetails extends Component {
       },
     } = this.props;
     this.setState((prev) => {
+      console.log(prev);
       if (prev.reviews) {
         localStorage.setItem(`${id}`, JSON.stringify([...prev.reviews, card]));
       }
