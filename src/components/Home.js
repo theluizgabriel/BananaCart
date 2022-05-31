@@ -50,12 +50,12 @@ export default class Home extends Component {
     const { addToCart } = this.props;
 
     return (
-      <div className="w-full pr-10 pb-10 flex flex-row justify-between">
+      <div className="w-full pb-10 flex flex-row justify-between bg-[#E7E7e7]">
         <div className="">
           <CategorySelect onInputCheck={ this.onInputCheck } />
         </div>
         <div className="flex flex-col w-full">
-          <div className="flex mb-10 justify-center">
+          <div className="flex mb-10 justify-center mt-10">
             <input
               className="shadow appearance-none border rounded w-full
             py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
@@ -68,7 +68,7 @@ export default class Home extends Component {
             />
             <button
               className="text-black font-bold py-2
-            px-4 rounded focus:outline-none focus:shadow-outline -translate-x-12"
+            px-4 rounded focus:outline-none focus:shadow-outline -ml-12"
               type="button"
               data-testid="query-button"
               onClick={ this.searchProducts }
@@ -76,15 +76,16 @@ export default class Home extends Component {
               <i className="fa-solid fa-magnifying-glass" />
             </button>
           </div>
+          {isEmpty && (
+            <p
+              data-testid="home-initial-message"
+              className="justify-self-center text-center
+              mb-10"
+            >
+              Digite algum termo de pesquisa ou escolha uma categoria.
+            </p>
+          )}
           <div className="flex justify-center w-full flex-wrap gap-5">
-            {isEmpty && (
-              <p
-                data-testid="home-initial-message"
-                className="justify-self-center pr-10"
-              >
-                Digite algum termo de pesquisa ou escolha uma categoria.
-              </p>
-            )}
             {products.map(
               ({
                 title,
