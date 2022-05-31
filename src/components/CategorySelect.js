@@ -23,8 +23,13 @@ class CategorySelect extends Component {
 
     const categoryListElement = categoryList.map(({ name, id }) => (
       <li key={ id }>
-        <label data-testid="category" htmlFor={ name }>
+        <label
+          data-testid="category"
+          htmlFor={ name }
+          style={ { cursor: 'pointer' } }
+        >
           <input
+            style={ { display: 'hidden', opacity: 0 } }
             type="radio"
             id={ name }
             value={ id }
@@ -38,8 +43,11 @@ class CategorySelect extends Component {
     ));
 
     return (
-      <div style={ { float: 'left' } }>
-        <ul>{categoryListElement}</ul>
+      <div
+        className="w-72 bg-[#333333] py-10 pl-5 shadow-lg
+        shadow-slate-400"
+      >
+        <ul className="flex flex-col text-slate-200 gap-3">{categoryListElement}</ul>
       </div>
     );
   }

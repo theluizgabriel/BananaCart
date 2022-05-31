@@ -50,53 +50,65 @@ export default class Home extends Component {
     const { addToCart } = this.props;
 
     return (
-      <>
-        <CategorySelect onInputCheck={ this.onInputCheck } />
-        <div>
-          <input
-            type="text"
-            data-testid="query-input"
-            name="search"
-            value={ search }
-            onChange={ this.handleChange }
-          />
-          <button
-            type="button"
-            data-testid="query-button"
-            onClick={ this.searchProducts }
-          >
-            Pesquisar
-          </button>
-          {isEmpty && (
-            <p data-testid="home-initial-message">
-              Digite algum termo de pesquisa ou escolha uma categoria.
-            </p>
-          )}
+      <div className="w-full pr-10 pb-10 flex flex-row justify-between">
+        <div className="">
+          <CategorySelect onInputCheck={ this.onInputCheck } />
         </div>
-        <div>
-          {products.map(
-            ({
-              title,
-              thumbnail,
-              price,
-              id,
-              available_quantity: qty,
-              shipping,
-            }) => (
-              <ProductCard
-                key={ id }
-                id={ id }
-                name={ title }
-                image={ thumbnail }
-                price={ price }
-                addToCart={ addToCart }
-                stock={ qty }
-                isFreeShipping={ shipping.free_shipping }
-              />
-            ),
-          )}
+        <div className="flex flex-col w-full">
+          <div className="flex mb-10 justify-center">
+            <input
+              className="shadow appearance-none border rounded w-full
+            py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
+            w-2/3"
+              type="text"
+              data-testid="query-input"
+              name="search"
+              value={ search }
+              onChange={ this.handleChange }
+            />
+            <button
+              className="text-black font-bold py-2
+            px-4 rounded focus:outline-none focus:shadow-outline -translate-x-12"
+              type="button"
+              data-testid="query-button"
+              onClick={ this.searchProducts }
+            >
+              <i className="fa-solid fa-magnifying-glass" />
+            </button>
+          </div>
+          <div className="flex justify-center w-full flex-wrap gap-5">
+            {isEmpty && (
+              <p
+                data-testid="home-initial-message"
+                className="justify-self-center pr-10"
+              >
+                Digite algum termo de pesquisa ou escolha uma categoria.
+              </p>
+            )}
+            {products.map(
+              ({
+                title,
+                thumbnail,
+                price,
+                id,
+                available_quantity: qty,
+                shipping,
+              }) => (
+                <ProductCard
+                  key={ id }
+                  id={ id }
+                  name={ title }
+                  image={ thumbnail }
+                  price={ price }
+                  addToCart={ addToCart }
+                  stock={ qty }
+                  isFreeShipping={ shipping.free_shipping }
+                />
+              ),
+            )}
+          </div>
         </div>
-      </>
+      </div>
     );
   }
 }
