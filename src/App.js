@@ -34,29 +34,6 @@ class App extends React.Component {
   hasItem = (cartList, id) => cartList.some(({ id: currId }) => currId === id);
 
   updateItem = (cartList, id, operation) => cartList
-    // .reduce((acc, item) => {
-    //   if (item.id === id) {
-    //     let newQty = item.qty;
-    //     newQty = operation === 'remove' ? item.qty - 1 : item.qty + 1;
-    //     if (newQty < 1) {
-    //       return acc;
-    //     }
-    //     return [...acc, {
-    //       id: item.id,
-    //       qty: newQty,
-    //       name: item.name,
-    //       price: item.price,
-    //       image: item.image,
-    //     }];
-    //   }
-    //   return [...acc, {
-    //     id: item.id,
-    //     qty: 1,
-    //     name: item.name,
-    //     price: item.price,
-    //     image: item.image,
-    //   }];
-    // }, []);
     .map(({ qty, id: currId, name, price, image, stock }) => {
       if (currId === id) {
         let newQty = qty;
